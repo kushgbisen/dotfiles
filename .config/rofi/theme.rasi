@@ -1,0 +1,63 @@
+* {
+    /* Color Scheme */
+    background-color: #282828;
+    foreground-color: #d4be98;
+    border-color:     #504945;
+    selected-color:   #7c6f64;
+    active-color:     #e78a4e;
+    urgent-color:     #ea6962;
+    alt-background:   #32302f;
+    
+    /* Sizing */
+    element-padding:    12px;
+    highlight-padding: 8px;
+    border-radius:     6px;
+    spacing:           4px;
+}
+
+window {
+    background-color: @background-color;
+    border:           1px solid @border-color;
+    border-radius:    @border-radius;
+    width:            600px;
+    padding:          16px;
+}
+
+inputbar {
+    children:   [prompt, entry];
+    padding:    @element-padding;
+    background-color: @alt-background;
+}
+
+listview {
+    lines:      8;
+    padding:    @element-padding;
+    spacing:    @spacing;
+    scrollbar:  false;
+}
+
+element {
+    padding:        @element-padding;
+    border-radius:  @border-radius;
+    text-color:     @foreground-color;
+    background-color: @alt-background;
+}
+
+element.selected {
+    background-color: @selected-color;
+}
+
+element.active {
+    background-color: @active-color;
+    text-color:       @background-color;
+}
+
+element.urgent {
+    background-color: @urgent-color;
+    text-color:       @background-color;
+}
+
+element-icon {
+    size:  24px;
+    margin: 0 8px 0 0;
+}

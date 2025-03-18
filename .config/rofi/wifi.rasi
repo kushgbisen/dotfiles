@@ -1,0 +1,36 @@
+* {
+    /* Override colors */
+    background-color: #1d2021;
+    foreground-color: #a89984;
+    selected-color:   #458588;
+    active-color:     #b16286;
+    
+    /* WiFi-specific sizing */
+    width:            400px;
+    element-padding:  8px;
+    border-radius:    4px;
+}
+
+window {
+    width: @width;
+    padding: 12px;
+}
+
+listview {
+    lines: 6;
+    spacing: 2px;
+}
+
+element {
+    background-color: #282828;
+}
+
+element.selected {
+    background-color: @selected-color;
+    text-color:       @background-color;
+}
+
+entry {
+    placeholder: "Scanning networks...";
+    text-color: #ebdbb2;
+}

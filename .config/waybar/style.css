@@ -1,0 +1,121 @@
+/* -----------------------------------------------------------------------------
+ * Colors
+ * -------------------------------------------------------------------------- */
+@define-color bg #1a1a1a;
+@define-color light #D8DEE9;
+@define-color warning #ebcb8b;
+@define-color critical #cc241d;
+@define-color nord_bg #282828;
+@define-color font_gruv_normal #ebdbb2;
+@define-color font_gruv_faded #a89984;
+
+/* -----------------------------------------------------------------------------
+ * Animations
+ * -------------------------------------------------------------------------- */
+@keyframes blink-warning {
+    70% { color: @light; }
+    to { color: @light; background-color: @warning; }
+}
+
+@keyframes blink-critical {
+    70% { color: @light; }
+    to { color: @light; background-color: @critical; }
+}
+
+/* -----------------------------------------------------------------------------
+ * Base Styles
+ * -------------------------------------------------------------------------- */
+* {
+    font-family: "FiraCode Nerd Font";
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-weight: bold;
+}
+
+#waybar {
+    background: @bg;
+    color: @font_gruv_normal;
+    font-size: 15pt;
+}
+
+.modules-left { padding-left: 8px; }
+.modules-right { padding-right: 8px; }
+
+/* -----------------------------------------------------------------------------
+ * Module Specific Styles
+ * -------------------------------------------------------------------------- */
+#workspaces button {
+    padding: 0 0.88em;
+    background: transparent;
+    color: @font_gruv_faded;
+    min-width: 0;
+}
+
+#workspaces button.focused {
+    color: @font_gruv_normal;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#workspaces button.urgent {
+    color: @critical;
+    animation: blink-critical 2s linear infinite alternate;
+}
+
+#clock {
+    color: @font_gruv_normal;
+    padding: 0 8px;
+}
+
+#cpu, #memory, #temperature {
+    padding: 0 4px;
+}
+
+#cpu.warning, #memory.warning, #temperature.warning {
+    color: @warning;
+    animation: blink-warning 2s linear infinite alternate;
+}
+
+#cpu.critical, #memory.critical, #temperature.critical {
+    color: @critical;
+    animation: blink-critical 2s linear infinite alternate;
+}
+
+#network {
+    color: @font_gruv_faded;
+    padding: 0 8px;
+}
+
+#network.disconnected {
+    color: @critical;
+}
+
+#pulseaudio {
+    padding: 0 8px;
+}
+
+#pulseaudio.muted {
+    color: @font_gruv_faded;
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#mode {
+    color: @warning;
+    padding: 0 8px;
+    animation: blink-warning 2s linear infinite alternate;
+}
+
+/* -----------------------------------------------------------------------------
+ * Tooltips
+ * -------------------------------------------------------------------------- */
+tooltip {
+    background: @nord_bg;
+    border: 1px solid @font_gruv_faded;
+}
+
+tooltip label {
+    color: @font_gruv_normal;
+}

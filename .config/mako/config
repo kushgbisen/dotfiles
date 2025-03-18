@@ -1,0 +1,19 @@
+# ~/.config/mako/config
+
+# Set the font and size
+font = monospace 10
+
+# Colors: background, text, border, etc.
+background-color = #222222
+border-color = #ffffff
+text-color = #ffffff
+
+# Padding and border width
+padding = 10
+border-size = 2
+
+# Set the maximum number of notifications shown at once
+max-visible = 5
+
+# Optional: Customize the position on screen (e.g., top-right)
+geometry = 300x0+10+10

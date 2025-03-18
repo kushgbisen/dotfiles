@@ -1,0 +1,85 @@
+{
+    "layer": "top",
+    "position": "top",
+    "output": "eDP-1",
+    "height": 32,
+    "spacing": 8,
+    
+    "modules-left": ["custom/arch", "sway/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "custom/sep", "backlight", "custom/sep", "battery", "custom/sep", "network", "tray"],
+
+    "custom/arch": {
+        "format": " ",
+        "tooltip": false,
+        "style": "margin-right: 8px;"
+    },
+
+    "custom/sep": {
+        "format": "│",
+        "interval": "once",
+        "tooltip": false,
+        "style": "color: #928374; margin: 0 4px;"
+    },
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": " {name} ",
+        "format-icons": {
+            "urgent": "⚠",
+            "focused": "●",
+            "default": "○"
+        }
+    },
+
+    "clock": {
+    "interval": 60,
+    "format": "  {:%a %d %b | %I:%M %p}",
+    "tooltip": "Calendar: {calendar}"
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰖁  Muted",
+        "format-icons": ["󰕿", "󰖀", "󰕾", ""],
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol"
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "󰃠 {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "interval": 1,
+        "on-scroll-up": "brightnessctl set 1%+",
+        "on-scroll-down": "brightnessctl set 1%-"
+    },
+
+    "battery": {
+        "interval": 10,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"],
+        "exec-on-event": true
+    },
+
+    "network": {
+        "format-wifi": "󰖩  {essid}",
+        "format-ethernet": "󰈀  Wired",
+        "format-disconnected": "",
+        "interval": 5,
+        "tooltip-format": "IP: {ipaddr}"
+    },
+
+    "tray": {
+        "spacing": 8,
+        "icon-size": 16
+    }
+}

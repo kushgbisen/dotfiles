@@ -6,14 +6,11 @@ GIT_NAME="kushgbisen"
 GIT_EMAIL="kushgbisen@gmail.com"
 DOTFILES_REPO="https://github.com/kushgbisen/dotfiles.git"
 
-# Install packages in one go
+# Install packages 
 sudo pacman -Syu --noconfirm --needed \
   openssh stow zsh wget rsync wl-clipboard \
   bluez bluez-utils alsa-utils pipewire pipewire-alsa pipewire-pulse \
-  sway xorg-xwayland foot firefox pamixer brightnessctl
-
-# Append Wayland environment variables
-echo -e "\nMOZ_ENABLE_WAYLAND=1\nLIBSEAT_BACKEND=logind" | sudo tee -a /etc/environment >/dev/null
+  sway xorg-xwayland alacritty firefox pamixer brightnessctl tree jq aria2 zip unzip
 
 # Configure Git
 git config --global user.name "$GIT_NAME"

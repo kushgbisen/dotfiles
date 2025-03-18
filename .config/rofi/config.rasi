@@ -1,0 +1,15 @@
+configuration {
+    show-icons: true;
+    font: "JetBrains Mono Nerd Font 12";
+    icon-theme: "Papirus-Dark";
+    dpi: 96;
+    
+    display-drun:   "APPS";
+    display-run:    "RUN";
+    display-window: "WINDOWS";
+    display-ssh:    "SSH";
+    
+    modes: [drun,run,window,ssh];
+    theme: "~/.config/rofi/theme.rasi";
+    ssh-command: "kitty ssh {host}";
+}
