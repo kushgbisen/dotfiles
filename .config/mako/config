@@ -1,19 +1,35 @@
-# ~/.config/mako/config
+font=Cozette 11
+format=<b>%a ⏵</b> %s\n%b
+sort=-time
+output=DP-2
+layer=overlay
+anchor=top-right
+background-color=#282828
+width=300
+height=110
+margin=5
+padding=0,5,10
+border-size=2
+border-color=#fabd2f
+border-radius=15
+icons=0
+max-icon-size=64
+default-timeout=5000
+ignore-timeout=1
 
-# Set the font and size
-font = monospace 10
+[urgency=normal]
+border-color=#fe8019
 
-# Colors: background, text, border, etc.
-background-color = #222222
-border-color = #ffffff
-text-color = #ffffff
+[urgency=high]
+border-color=#fb4934
+default-timeout=0
 
-# Padding and border width
-padding = 10
-border-size = 2
+[app-name=lightcord]
+border-color=#fabd2f
 
-# Set the maximum number of notifications shown at once
-max-visible = 5
+[summary~="log-.*"]
+border-color=#b8bb26
 
-# Optional: Customize the position on screen (e.g., top-right)
-geometry = 300x0+10+10
+[app-name=lightcord summary~="(.*(^| )orz|ORZ|sto|STO|otl|OTL( |$).*)"]
+invisible=1
+
