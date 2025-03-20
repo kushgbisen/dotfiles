@@ -1,77 +1,55 @@
-###############################################################################
-# Sway Configuration File
-###############################################################################
+# -------------------------------
+# Sway Basic Settings & Variables
+# -------------------------------
+set $mod         Mod4
+set $term        alacritty
+set $menu        rofi -show drun
+set $browser     brave
 
-### Window Appearance & Behavior
-client.focused          #282828 #282828 #ebdbb2 #282828 #282828
-client.focused_inactive #282828 #282828 #ebdbb2 #282828 #282828
-client.unfocused        #282828 #282828 #505552 #282828 #282828
-default_border none
-default_floating_border none
-gaps inner 0
-gaps outer 0
-titlebar_padding 1
-titlebar_border_thickness 0
-focus_follows_mouse yes
+# -------------------------------
+# Appearance & Behavior
+# -------------------------------
+client.focused             #282828 #282828 #ebdbb2 #282828 #282828
+client.focused_inactive    #282828 #282828 #ebdbb2 #282828 #282828
+client.unfocused           #282828 #282828 #505552 #282828 #282828
+default_border             none
+default_floating_border    none
+gaps inner                 0
+gaps outer                 0
+titlebar_padding           1
+titlebar_border_thickness  0
+focus_follows_mouse        yes
 
-### Variables
-set $mod Mod4
-set $term alacritty
-set $menu rofi -show drun
-set $browser brave
-
-### Wallpaper
-exec_always swaybg --image ~/.config/wallpaper.png -m stretch
-
-### Status Bar
-exec ~/.config/waybar/launch.sh
-
-###############################################################################
-# Key Bindings
-###############################################################################
-
-# Launch Terminal with Mod+Enter or Mod+t
+# -------------------------------
+# Wallpaper & Notification Daemon
+# -------------------------------
+exec_always swaybg --image /home/kush/.config/wallpaper.png -m fill
+exec_always --no-startup-id mako
+exec_always --no-startup-id ~/.config/waybar/launch.sh
+# -------------------------------
+# Basic Key Bindings
+# -------------------------------
+bindsym $mod+Shift+c reload
 bindsym $mod+Return exec $term
-bindsym $mod+t exec $term
-
-# Open Application Menu with Mod+d
-bindsym $mod+d exec $menu
-
-# Open Brave Browser with Mod+w
-bindsym $mod+w exec $browser
-
-# Quit Sway (exit session) with Mod+q
+bindsym $mod+t      exec $term
+bindsym $mod+d      exec $menu
+bindsym $mod+w      exec $browser 
+bindsym $mod+q      kill
 bindsym $mod+Shift+q exec swaymsg exit
+bindsym $mod+f      fullscreen toggle
 
-# Kill the focused window with Mod+Shift+q
-bindsym $mod+q kill
-
-# Toggle Fullscreen with Mod+f
-bindsym $mod+f fullscreen toggle
-
-# Focus Navigation using Arrow Keys
+# Navigation
 bindsym $mod+Left  focus left
 bindsym $mod+Down  focus down
 bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
-
-# Move Windows using Arrow Keys + Shift
-bindsym $mod+Shift+Left  move left
-bindsym $mod+Shift+Down  move down
-bindsym $mod+Shift+Up    move up
-bindsym $mod+Shift+Right move right
-
-# Toggle focus mode between tiling and floating layers with Mod+space
 bindsym $mod+space focus mode_toggle
+bindsym $mod+p     focus parent
 
-# Focus Parent Container with Mod+p
-bindsym $mod+p focus parent
-
-###############################################################################
+# -------------------------------
 # Workspace Management
-###############################################################################
-
-# Switch to workspace using Mod+number keys
+# -------------------------------
+# Switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -83,7 +61,7 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
 
-# Move focused container to workspace using Mod+Shift+number keys
+# Move container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
@@ -95,27 +73,29 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
-###############################################################################
-# Hardware Controls (Brightness, Sound, and Media)
-###############################################################################
+# -------------------------------
+# Hardware Controls: Brightness
+# -------------------------------
+bindsym XF86MonBrightnessUp exec sh -c 'brightnessctl set +5% && cur=$(brightnessctl | grep -o "[0-9]\+%" | head -1); notify-send -r 8888 "Brightness" "Brightness: $cur"'
+bindsym XF86MonBrightnessDown exec sh -c 'brightnessctl set 5%- && cur=$(brightnessctl | grep -o "[0-9]\+%" | head -1); notify-send -r 8888 "Brightness" "Brightness: $cur"'
 
-# Brightness Controls
-bindsym XF86MonBrightnessUp   exec brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+# -------------------------------
+# Hardware Controls: Volume
+# -------------------------------
+bindsym --locked XF86AudioRaiseVolume exec sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +5%; vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP "[0-9]+%" | head -1); vol_int=$(echo $vol | tr -d "%"); bar=$(printf "%0.s▮" $(seq 1 $((vol_int / 10)))); notify-send -r 9999 "Volume" "$vol | $bar"'
+bindsym --locked XF86AudioLowerVolume exec sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -5%; vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP "[0-9]+%" | head -1); vol_int=$(echo $vol | tr -d "%"); bar=$(printf "%0.s▮" $(seq 1 $((vol_int / 10)))); notify-send -r 9999 "Volume" "$vol | $bar"'
+bindsym --locked XF86AudioMute exec sh -c 'pactl set-sink-mute @DEFAULT_SINK@ toggle; vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP "[0-9]+%" | head -1); notify-send -r 9999 "Volume" "Mute toggled ($vol)"'
 
-# Volume Controls 
-bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
-# Media Playback Controls 
+# -------------------------------
+# Hardware Controls: Media Playback
+# -------------------------------
 bindsym XF86AudioPlay  exec playerctl play-pause
 bindsym XF86AudioNext  exec playerctl next
 bindsym XF86AudioPrev  exec playerctl previous
 
-###############################################################################
-# Resizing Mode
-###############################################################################
+# -------------------------------
+# Resize Mode
+# -------------------------------
 mode "resize" {
     bindsym Left  resize shrink width 10px
     bindsym Down  resize grow height 10px
@@ -126,25 +106,47 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-###############################################################################
-# Mouse & Floating Window Behavior
-###############################################################################
+# -------------------------------
+# Mouse & Floating Behavior
+# -------------------------------
 floating_modifier $mod normal
 
-###############################################################################
-# Autostart / Exec Section
-###############################################################################
+# -------------------------------
+# Autostart & Environment Setup
+# -------------------------------
 exec_always {
-    # Set GTK and font settings
     gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Material-Dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Material-Dark'
     gsettings set org.gnome.desktop.interface font-name 'Firacode NerdFont'
-    # Update systemd environment for Wayland
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-    # Start swayidle to manage idleness and locking
     swayidle -w timeout 1200 'swaylock --config ~/.config/swaylock/config' \
       timeout 1200 'swaymsg "output * power off"' \
       resume 'swaymsg "output * power on"' \
       before-sleep 'swaylock --config ~/.config/swaylock/config'
 }
 
+# -------------------------------
+# Swipe Gesture Bindings (No Pinch/Hold Gestures)
+# -------------------------------
+# 4-Finger Swipe Right: Switch to previous workspace
+bindgesture --exact swipe:4:right exec sh -c 'notify-send "Gesture" "4-Finger Swipe Right: Prev Workspace" && swaymsg workspace prev'
+# 4-Finger Swipe Left: Switch to next workspace
+bindgesture --exact swipe:4:left exec sh -c 'notify-send "Gesture" "4-Finger Swipe Left: Next Workspace" && swaymsg workspace next'
+# 3-Finger Swipe Down: Open Application Menu
+bindgesture --exact swipe:3:down exec sh -c 'notify-send "Gesture" "3-Finger Swipe Down: Open Menu" && exec $menu'
+
+# -------------------------------
+# Touchpad Configuration
+# -------------------------------
+input "1267:12448:ELAN0708:00_04F3:30A0_Touchpad" {
+    tap enabled
+    natural_scroll enabled
+    accel_profile adaptive
+#    pointer_accel 1.0
+    dwt enabled
+}
+
+# -------------------------------
+# Print Screen Binding
+# -------------------------------
+bindsym Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
