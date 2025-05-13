@@ -1,3 +1,4 @@
+output * scale 1.18
 # -------------------------------
 # Sway Basic Settings & Variables
 # -------------------------------
@@ -23,7 +24,7 @@ focus_follows_mouse        yes
 # -------------------------------
 # Wallpaper & Notification Daemon
 # -------------------------------
-exec_always swaybg --image /home/kush/.config/wallpaper.png -m fill
+exec_always swaybg --image /home/$USER/.config/wallpaper.png -m fill
 exec_always --no-startup-id mako
 exec_always --no-startup-id ~/.config/waybar/launch.sh
 # -------------------------------
@@ -45,6 +46,8 @@ bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 bindsym $mod+space focus mode_toggle
 bindsym $mod+p     focus parent
+bindsym $mod+e     exec thunar
+bindsym $mod+l exec ~/.config/sway/scripts/lock_screen.sh
 
 # -------------------------------
 # Workspace Management
@@ -119,10 +122,11 @@ exec_always {
     gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox-Material-Dark'
     gsettings set org.gnome.desktop.interface font-name 'Firacode NerdFont'
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-    swayidle -w timeout 1200 'swaylock --config ~/.config/swaylock/config' \
-      timeout 1200 'swaymsg "output * power off"' \
-      resume 'swaymsg "output * power on"' \
-      before-sleep 'swaylock --config ~/.config/swaylock/config'
+    exec swayidle -w \
+    timeout 300 '~/.config/sway/scripts/lock_screen.sh' \
+    timeout 360 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep '~/.config/sway/scripts/lock_screen.sh'
 }
 
 # -------------------------------

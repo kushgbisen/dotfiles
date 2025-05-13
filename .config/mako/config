@@ -1,35 +1,28 @@
-font=Cozette 11
-format=<b>%a ⏵</b> %s\n%b
-sort=-time
-output=DP-2
-layer=overlay
+font=FiraCode Nerd Font Bold 14
+background-color=#1a1a1aE6
+text-color=#ebdbb2
+border-size=1
+border-color=#ebdbb2B3
+border-radius=0
+padding=12
+margin=10
+width=380
+icons=1
+format=󰂚 <span color="#ebdbb2">%a</span>\n%s\n<span color="#a89984">%b</span>
+default-timeout=6000
+max-visible=3
+history=1
+max-history=100
 anchor=top-right
-background-color=#282828
-width=300
-height=110
-margin=5
-padding=0,5,10
+layer=overlay
+[urgency=low]
+background-color=#1a1a1aE6
+text-color=#a89984
+border-color=#ebdbb299
+default-timeout=4000
+[urgency=critical]
+background-color=#1a1a1aF2
+text-color=#cc241d
+border-color=#cc241dE6
 border-size=2
-border-color=#fabd2f
-border-radius=15
-icons=0
-max-icon-size=64
-default-timeout=5000
-ignore-timeout=1
-
-[urgency=normal]
-border-color=#fe8019
-
-[urgency=high]
-border-color=#fb4934
 default-timeout=0
-
-[app-name=lightcord]
-border-color=#fabd2f
-
-[summary~="log-.*"]
-border-color=#b8bb26
-
-[app-name=lightcord summary~="(.*(^| )orz|ORZ|sto|STO|otl|OTL( |$).*)"]
-invisible=1
-
